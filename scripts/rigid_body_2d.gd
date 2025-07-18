@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var speed = 15.0;
+var speed = 500.0;
 
 func _physics_process(delta: float) -> void:
 	var velocity := Vector2.ZERO
@@ -11,7 +11,8 @@ func _physics_process(delta: float) -> void:
 	
 	if move_left:
 		velocity.x -= speed
+		print("Left")
 	if move_right:
 		velocity.x += speed
-
+		print("Right")
 	apply_central_force(velocity)
