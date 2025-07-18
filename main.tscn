@@ -25,6 +25,7 @@ script = ExtResource("1_ig7tw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(62, 123)
 rotation = 1.5708
+scale = Vector2(0.999989, 1.96218)
 shape = SubResource("RectangleShape2D_0xm2m")
 debug_color = Color(2.11775e-06, 0.609289, 0.64295, 0.42)
 
@@ -35,6 +36,10 @@ offset_right = 30.0
 offset_bottom = 30.0
 scale = Vector2(0.499189, 0.501184)
 metadata/_edit_use_anchors_ = true
+
+[node name="GroundCheck" type="RayCast2D" parent="Player"]
+position = Vector2(61.6842, 124)
+target_position = Vector2(0, 25)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(17, -3)
