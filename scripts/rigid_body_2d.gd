@@ -3,7 +3,7 @@ extends RigidBody2D
 @onready var ground_check: RayCast2D = $GroundCheck
 
 var SPEED = 500.0;
-var JUMP_FORCE = 50.0;
+var JUMP_FORCE = 200.0;
 
 func _physics_process(delta: float) -> void:
 	var velocity := Vector2.ZERO
@@ -22,7 +22,8 @@ func _physics_process(delta: float) -> void:
 	if jump:
 		jumping = true
 		#velocity.y -= JUMP_FORCE
-		print("Jumping?:", jumping)
+		print("Jumping?: ", jumping)
+		print("Raycasting?: ", ground_check.is_colliding())
 	
 	if jumping and ground_check.is_colliding():
 		apply_impulse(Vector2(0, -JUMP_FORCE))
