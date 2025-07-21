@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 
 version_control/autoload_on_startup=true
 
+[global_group]
+
+Player=""
+
 [input]
 
 left={
@@ -50,3 +54,6 @@ jump={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
+2d/sdf/oversize=0

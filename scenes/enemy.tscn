@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://k6l1kv1hxsnx"]
+
+[ext_resource type="Script" uid="uid://df44xupyu4paw" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_4ra3w"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
+friction = 0.1
+bounce = 0.75
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(32, 31)
+
+[sub_resource type="Animation" id="Animation_md0e3"]
+resource_name = "color_select"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:script")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ra3w"]
+_data = {
+&"color_select": SubResource("Animation_md0e3")
+}
+
+[node name="Enemy" type="RigidBody2D"]
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_0xm2m")
+angular_damp = 50.0
+script = ExtResource("1_md0e3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4ra3w")
+hframes = 29
+
+[node name="LeftEdgeDetect" type="RayCast2D" parent="Sprite2D"]
+position = Vector2(-16, 0)
+target_position = Vector2(0, 25)
+
+[node name="RightEdgeDetect" type="RayCast2D" parent="Sprite2D"]
+position = Vector2(16, 0)
+target_position = Vector2(0, 25)
+
+[node name="SightCast" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(100, 0)
+
+[node name="WeakCast1" type="RayCast2D" parent="Sprite2D"]
+position = Vector2(0, 1)
+target_position = Vector2(0, -22)
+collision_mask = 4
+
+[node name="WeakCast2" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(-22, 0)
+collision_mask = 4
+
+[node name="WeakCast3" type="RayCast2D" parent="Sprite2D"]
+target_position = Vector2(0, 22)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4ra3w")
+}

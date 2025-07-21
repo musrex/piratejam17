@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://blw425655rlbo"]
+
+[ext_resource type="Script" uid="uid://c5k1t71ea5b8t" path="res://scripts/floor.gd" id="1_is213"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(357.497, 20)
+
+[node name="Floor" type="StaticBody2D"]
+visible = false
+scale = Vector2(0.895112, 0.984839)
+script = ExtResource("1_is213")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(157.522, 152)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -21.2264
+offset_top = 142.155
+offset_right = 18.7736
+offset_bottom = 182.155
+scale = Vector2(8.93311, 0.491604)
+metadata/_edit_use_anchors_ = true

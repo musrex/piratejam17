@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cs0xp7uo2o34g"]
+
+[ext_resource type="FontFile" uid="uid://sjkqg8hj4gt" path="res://assets/0xProtoNerdFont-Regular.ttf" id="1_todgd"]
+
+[resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/font_sizes/font_size = 10
+Label/fonts/font = ExtResource("1_todgd")
