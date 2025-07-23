@@ -12,15 +12,11 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fa52j"]
-size = Vector2(28.4, 18.5414)
+size = Vector2(25.7334, 21.7883)
 
 [node name="Character Select" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 156.0
-offset_top = 142.0
-offset_right = 156.0
-offset_bottom = 142.0
 script = ExtResource("1_jgus3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -28,27 +24,26 @@ libraries = {
 &"": SubResource("AnimationLibrary_fa52j")
 }
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(99, -33)
+[node name="CharacterSelect" type="Area2D" parent="."]
+position = Vector2(184, 86)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-65.5, -31.5273)
+[node name="SelectZone" type="CollisionShape2D" parent="CharacterSelect"]
+position = Vector2(-2.5, 16.5)
 scale = Vector2(7.49999, 4.91089)
 shape = SubResource("RectangleShape2D_fa52j")
 
-[node name="ColorRect" type="ColorRect" parent="Area2D"]
-offset_left = -172.0
-offset_top = -77.0
-offset_right = 41.0
-offset_bottom = 14.0
-color = Color(1, 1, 1, 0.537255)
+[node name="ColorRect" type="ColorRect" parent="CharacterSelect"]
+visible = false
+offset_left = -106.0
+offset_top = -51.0
+offset_right = 105.0
+offset_bottom = 69.0
 
 [node name="Instructions2" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = -146.0
-offset_top = -131.0
-offset_right = 94.0
-offset_bottom = -59.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 244.0
+offset_bottom = 76.0
 
 [node name="Label" type="Label" parent="Instructions2"]
 layout_mode = 2
@@ -77,11 +72,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "jump: w, "
 
 [node name="Instructions" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = -147.0
-offset_top = -132.0
-offset_right = 93.0
-offset_bottom = -60.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 243.0
+offset_bottom = 75.0
 
 [node name="Label" type="Label" parent="Instructions"]
 layout_mode = 2
@@ -105,7 +99,5 @@ layout_mode = 2
 theme = ExtResource("2_jgus3")
 text = "jump: w, "
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="CharacterSelect" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="CharacterSelect" to="." method="_on_area_2d_body_exited"]
