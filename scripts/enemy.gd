@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var player: RigidBody2D
+@onready var player: CharacterBody2D
 
 @onready var sight_cast: RayCast2D = $Sprite2D/SightCast
 @onready var weak_cast_1: RayCast2D = $Sprite2D/WeakCast1
@@ -19,8 +19,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity = state.get_linear_velocity()
 	if player:
 		if not color:
-			while color == player.sprite_2d.frame:
-				color = randi_range(0, 29)
+			color = randi_range(0, 29)
 		if player.position.x < position.x:
 			sprite_2d.scale.x = -1
 		else:

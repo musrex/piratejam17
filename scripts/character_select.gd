@@ -5,7 +5,7 @@ extends Control
 @onready var char_select_area: Area2D = $CharacterSelect
 @onready var select_zone: CollisionShape2D = $CharacterSelect/SelectZone
 
-var player_in_area = true
+var player_in_area = false
 var selected = false
 	
 func _process(delta: float) -> void:
@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 func char_select() -> void:
 	var player = main.get_node("Entities/Player")
 	if player_in_area and not selected:
-		var sprite_2d : Sprite2D = player.get_node("Normal")
+		var sprite_2d : Sprite2D = player.get_node("SpriteContainer/Normal")
 		if Input.is_action_just_pressed("left"):
 			if sprite_2d.frame <= 0:
 				sprite_2d.frame = 0
