@@ -6,9 +6,9 @@
 size = Vector2(357.497, 20)
 
 [node name="Floor" type="StaticBody2D"]
-visible = false
 scale = Vector2(0.895112, 0.984839)
 script = ExtResource("1_is213")
+width = 11.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(157.522, 152)

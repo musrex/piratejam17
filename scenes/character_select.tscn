@@ -39,65 +39,49 @@ offset_top = -51.0
 offset_right = 105.0
 offset_bottom = 69.0
 
-[node name="Instructions2" type="VBoxContainer" parent="."]
-offset_left = 4.0
+[node name="Instructions Shadow" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 32.0
 offset_top = 4.0
-offset_right = 244.0
-offset_bottom = 76.0
+offset_right = 272.0
+offset_bottom = 88.0
 
-[node name="Label" type="Label" parent="Instructions2"]
+[node name="Label" type="Label" parent="Instructions Shadow"]
 layout_mode = 2
 theme = ExtResource("2_jgus3")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 text = "SELECT YOUR FIGHTER:"
-horizontal_alignment = 1
 
-[node name="left" type="Label" parent="Instructions2"]
+[node name="Instructions" type="Label" parent="Instructions Shadow"]
 layout_mode = 2
 theme = ExtResource("2_jgus3")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "left: a, "
-
-[node name="right" type="Label" parent="Instructions2"]
-layout_mode = 2
-theme = ExtResource("2_jgus3")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "right: d, "
-
-[node name="up" type="Label" parent="Instructions2"]
-layout_mode = 2
-theme = ExtResource("2_jgus3")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "jump: w, "
+text = "left: a, 
+right: d, 
+jump: w, 
+lower head: s, "
 
 [node name="Instructions" type="VBoxContainer" parent="."]
-offset_left = 3.0
+layout_mode = 0
+offset_left = 31.0
 offset_top = 3.0
-offset_right = 243.0
-offset_bottom = 75.0
+offset_right = 271.0
+offset_bottom = 87.0
 
 [node name="Label" type="Label" parent="Instructions"]
 layout_mode = 2
 theme = ExtResource("2_jgus3")
 theme_override_font_sizes/font_size = 15
 text = "SELECT YOUR FIGHTER:"
-horizontal_alignment = 1
 
-[node name="left" type="Label" parent="Instructions"]
+[node name="Instructions" type="Label" parent="Instructions"]
 layout_mode = 2
 theme = ExtResource("2_jgus3")
-text = "left: a, "
-
-[node name="right" type="Label" parent="Instructions"]
-layout_mode = 2
-theme = ExtResource("2_jgus3")
-text = "right: d, "
-
-[node name="up" type="Label" parent="Instructions"]
-layout_mode = 2
-theme = ExtResource("2_jgus3")
-text = "jump: w, "
+text = "left: a, 
+right: d, 
+jump: w, 
+lower head: s, "
 
 [connection signal="body_entered" from="CharacterSelect" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="CharacterSelect" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b780dpsew0s5b"]
+
+[ext_resource type="Script" uid="uid://ta8gty5mhwby" path="res://scripts/fight_scene.gd" id="1_p8b18"]
+[ext_resource type="Texture2D" uid="uid://dj8mv87f20qn4" path="res://assets/mountain-tiles.png" id="2_keksv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nff5x"]
+size = Vector2(19, 188)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_keksv"]
+size = Vector2(327, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gksjr"]
+size = Vector2(20, 187)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7aqs0"]
+size = Vector2(326, 20)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gksjr"]
+texture = ExtResource("2_keksv")
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+16:2/0 = 0
+18:2/0 = 0
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7aqs0"]
+sources/0 = SubResource("TileSetAtlasSource_gksjr")
+
+[node name="FightScene" type="Node2D"]
+script = ExtResource("1_p8b18")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(33, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-46, 80)
+shape = SubResource("RectangleShape2D_nff5x")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(127.5, -24)
+shape = SubResource("RectangleShape2D_keksv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(301, 79.5)
+shape = SubResource("RectangleShape2D_gksjr")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(127, 184)
+shape = SubResource("RectangleShape2D_7aqs0")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-32, 0)
+tile_set = SubResource("TileSet_7aqs0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -8,14 +8,14 @@ friction = 0.1
 bounce = 0.75
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(32, 31)
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_md0e3"]
 resource_name = "color_select"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("SpriteContainer/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,42 +46,19 @@ _data = {
 size = Vector2(267, 20)
 
 [node name="Enemy" type="RigidBody2D" groups=["Enemies"]]
-mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_0xm2m")
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_md0e3")
+ENEMY_NAME = "Bert"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SpriteContainer" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer"]
 texture = ExtResource("2_4ra3w")
 hframes = 29
 
-[node name="LeftEdgeDetect" type="RayCast2D" parent="Sprite2D"]
-position = Vector2(-16, 0)
-target_position = Vector2(0, 25)
-
-[node name="RightEdgeDetect" type="RayCast2D" parent="Sprite2D"]
-position = Vector2(16, 0)
-target_position = Vector2(0, 25)
-
-[node name="SightCast" type="RayCast2D" parent="Sprite2D"]
-target_position = Vector2(100, 0)
-
-[node name="WeakCast1" type="RayCast2D" parent="Sprite2D"]
-position = Vector2(0, 1)
-target_position = Vector2(0, -22)
-collision_mask = 4
-
-[node name="WeakCast2" type="RayCast2D" parent="Sprite2D"]
-target_position = Vector2(-22, 0)
-collision_mask = 4
-
-[node name="GroundDetect" type="RayCast2D" parent="Sprite2D"]
-target_position = Vector2(0, 22)
-collision_mask = 4
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_1bvp3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -90,9 +67,62 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 5
+visibility_layer = 5
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_md0e3")
 
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="LeftEdgeDetect" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(-16, 0)
+target_position = Vector2(0, 25)
+
+[node name="RightEdgeDetect" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(16, 0)
+target_position = Vector2(0, 25)
+
+[node name="SightCast1" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(70, 0)
+
+[node name="SightCast2" type="RayCast2D" parent="RayCasts"]
+visible = false
+target_position = Vector2(125, 0)
+
+[node name="WeakCast1" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(0, -22)
+collision_mask = 4
+
+[node name="WeakCast2" type="RayCast2D" parent="RayCasts"]
+visible = false
+target_position = Vector2(-22, 0)
+collision_mask = 4
+
+[node name="GroundDetect" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(0, 22)
+collision_mask = 4
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="StartEngageTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -42.0
+offset_right = 20.0
+offset_bottom = -19.0
+text = "!"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="StartEngageTimer" to="." method="_on_start_engage_timer_timeout"]
