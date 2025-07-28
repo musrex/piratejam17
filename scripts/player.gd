@@ -118,23 +118,20 @@ func _on_ram_to_right_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemies"):
 		print("POW!")
 		print(body)
-		var dir = sign(sprite_container.scale.x)
-		var force = Vector2(PUSH_BACK, POP_UP) * velocity.length() #* dir
-		body.apply_impulse(force, body.position)
-		body.add_collision_exception_with(self)
-		body.stun()
-		ram_lock()
-		animation_player.play("flash_hit")
-		body.remove_collision_exception_with(self)
-		print("Dir: ", dir)
-		print("Force: ", force)
+		ram(body)
 
 func _on_ram_to_left_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemies"):
 		print("POW!")
 		print(body)
+		ram(body)
+
+func ram(body):
 		var dir = sign(sprite_container.scale.x)
-		var force = Vector2(PUSH_BACK, POP_UP) * velocity.length() #* dir
+		var momentum = velocity.length()
+		if momentum < 0.01:
+			momentum = 1
+		var force = Vector2(PUSH_BACK, POP_UP) * momentum * dir
 		body.apply_impulse(force, body.position)
 		body.add_collision_exception_with(self)
 		body.stun()
@@ -144,17 +141,18 @@ func _on_ram_to_left_body_entered(body: Node2D) -> void:
 		print("Dir: ", dir)
 		print("Force: ", force)
 
-
 @onready var lock: Timer = $Lock
 
 func ram_lock() -> void:
-	ram_locked = true
-	lock.start()
-	velocity = Vector2.ZERO
+	if lock.is_stopped():
+		ram_locked = true
+		lock.start()
+		velocity = Vector2.ZERO
 	
 func _on_coyote_timer_timeout() -> void:
 	coyote = false
 
 func _on_lock_timeout() -> void:
+	print("Unlocking RAM")
 	velocity = Vector2.ZERO
 	ram_locked = false	

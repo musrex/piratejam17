@@ -7,22 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://talruquwvyht" path="res://assets/goat_jumping.png" id="5_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(28, 25)
-
-[sub_resource type="Animation" id="Animation_qlg0r"]
-resource_name = "flash_hit"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
+size = Vector2(28, 32)
 
 [sub_resource type="Animation" id="Animation_tuyoq"]
 length = 0.001
@@ -39,6 +24,21 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "flash_hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
 _data = {
 &"RESET": SubResource("Animation_tuyoq"),
@@ -46,10 +46,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
-size = Vector2(8, 18)
+size = Vector2(8, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
-size = Vector2(18, 8.00002)
+size = Vector2(21, 8.00002)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 5
@@ -60,7 +60,7 @@ ACCELERATION = 0.032
 DECELERATION = 0.184
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -3.5)
+position = Vector2(-1, -4)
 shape = SubResource("RectangleShape2D_g2els")
 debug_color = Color(2.11775e-06, 0.609289, 0.64295, 0.42)
 
@@ -95,14 +95,14 @@ collision_mask = 5
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RamToRight"]
-position = Vector2(12, -9)
+position = Vector2(12, -10.5)
 shape = SubResource("RectangleShape2D_qlg0r")
 
 [node name="RamToLeft" type="Area2D" parent="."]
 monitoring = false
 
 [node name="RamCollisionToLeft" type="CollisionShape2D" parent="RamToLeft"]
-position = Vector2(-14, -9)
+position = Vector2(-14, -10.5)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_tuyoq")
 

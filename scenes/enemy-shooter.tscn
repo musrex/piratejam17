@@ -1,0 +1,160 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxloonh4sj3g4"]
+
+[ext_resource type="Script" uid="uid://df44xupyu4paw" path="res://scripts/enemy.gd" id="1_7hxp3"]
+[ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_k0qbs"]
+[ext_resource type="Texture2D" uid="uid://bnxokqqcw1glo" path="res://assets/cyborg.png" id="3_k0qbs"]
+[ext_resource type="Texture2D" uid="uid://b5htssvvtyj0m" path="res://assets/ammo.png" id="4_ctjls"]
+[ext_resource type="Texture2D" uid="uid://dq3h02fju8jmk" path="res://assets/minigun.png" id="5_o863w"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
+friction = 0.1
+bounce = 0.75
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_md0e3"]
+resource_name = "color_select"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:script")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ra3w"]
+_data = {
+&"color_select": SubResource("Animation_md0e3")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(267, 20)
+
+[node name="Enemy" type="RigidBody2D" groups=["Enemies"]]
+physics_material_override = SubResource("PhysicsMaterial_0xm2m")
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_7hxp3")
+ENEMY_NAME = "Bert"
+
+[node name="SpriteContainer" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer"]
+texture = ExtResource("2_k0qbs")
+hframes = 29
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4ra3w")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 5
+visibility_layer = 5
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_md0e3")
+
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="LeftEdgeDetect" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(-16, 0)
+target_position = Vector2(0, 25)
+
+[node name="RightEdgeDetect" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(16, 0)
+target_position = Vector2(0, 25)
+
+[node name="SightCast1" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(70, 0)
+
+[node name="SightCast2" type="RayCast2D" parent="RayCasts"]
+visible = false
+target_position = Vector2(125, 0)
+
+[node name="WeakCast1" type="RayCast2D" parent="RayCasts"]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(0, -22)
+collision_mask = 4
+
+[node name="WeakCast2" type="RayCast2D" parent="RayCasts"]
+visible = false
+target_position = Vector2(-22, 0)
+collision_mask = 4
+
+[node name="GroundDetect" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(0, 22)
+collision_mask = 4
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="StartEngageTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -42.0
+offset_right = 20.0
+offset_bottom = -19.0
+text = "!"
+horizontal_alignment = 1
+
+[node name="Cyborg" type="Node2D" parent="."]
+visible = false
+
+[node name="Cyborg" type="Sprite2D" parent="Cyborg"]
+texture = ExtResource("3_k0qbs")
+
+[node name="Marker2D" type="Marker2D" parent="Cyborg"]
+position = Vector2(14, -10)
+
+[node name="BlackPhillip" type="Node2D" parent="."]
+visible = false
+
+[node name="VulcanRaven" type="Node2D" parent="."]
+
+[node name="Ammo" type="Sprite2D" parent="VulcanRaven"]
+texture = ExtResource("4_ctjls")
+
+[node name="VulcanSprite" type="Sprite2D" parent="VulcanRaven"]
+texture = ExtResource("2_k0qbs")
+hframes = 29
+
+[node name="Gun" type="Sprite2D" parent="VulcanRaven"]
+texture = ExtResource("5_o863w")
+
+[node name="Marker2D" type="Marker2D" parent="VulcanRaven"]
+position = Vector2(16, -1)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="StartEngageTimer" to="." method="_on_start_engage_timer_timeout"]
