@@ -1,4 +1,3 @@
-class_name Enemies
 extends RigidBody2D
 
 @export var ENEMY_NAME: String;
@@ -8,7 +7,7 @@ extends RigidBody2D
 @onready var sprite_container: Node2D = $SpriteContainer
 @onready var sprite_2d: Sprite2D = $SpriteContainer/Sprite2D
 
-@onready var ray_casts: Node2D = $RayCasts
+
 @onready var sight_cast: RayCast2D = $RayCasts/SightCast1
 @onready var sight_cast_2: RayCast2D = $RayCasts/SightCast2
 
@@ -49,13 +48,11 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			if player:
 				if player.position.x < position.x:
 					sprite_container.scale.x = -1
-					ray_casts.scale.x = -1
 				else:
 					sprite_container.scale.x = 1
-					ray_casts.scale.x = 1
 			
-			#if sight_cast.is_colliding():
-			#	start_engage_timer.start()
+			if sight_cast.is_colliding():
+				start_engage_timer.start()
 			
 			if ground_detect.is_colliding():
 				grounded = true
@@ -70,6 +67,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("YO!")
 	if body.is_in_group("Player"):
+		freeze = false
 		print("In here")
 		my_floor_active = true
 		

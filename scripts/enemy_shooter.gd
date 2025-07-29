@@ -7,9 +7,11 @@ extends RigidBody2D
 
 
 @onready var sprite_container: Node2D = $SpriteContainer
+
+
 @onready var sprite_2d: Sprite2D = $SpriteContainer/Sprite2D
 
-
+@onready var ray_casts: Node2D = $RayCasts
 @onready var sight_cast: RayCast2D = $RayCasts/SightCast1
 @onready var sight_cast_2: RayCast2D = $RayCasts/SightCast2
 
@@ -31,6 +33,7 @@ var my_floor_active := false
 var grounded := true
 var stunned := false
 var engaged := false
+var shooting := false
 @onready var bullet = preload("res://scenes/bullet.tscn")
 
 @onready var player: CharacterBody2D
@@ -45,7 +48,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity = state.get_linear_velocity()
 	set_enemy_type(ENEMY_TYPE)
 	if not stunned:	
-		shoot()
+		
 		if my_floor_active:
 			
 			if not color:
@@ -56,20 +59,29 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 				
 				if player.position.x < position.x:
 					sprite_container.scale.x = -1
+					ray_casts.scale.x = -1
 				else:
 					sprite_container.scale.x = 1
+					ray_casts.scale.x = 1
+			
+			if shooting:
+				shoot()
+			
 			
 			if sight_cast.is_colliding():
-				start_engage_timer.start()
-			
-			if ground_detect.is_colliding():
-				grounded = true
+				shooting = false
+				if ground_detect.is_colliding():
+					grounded = true
+				else:
+					grounded = false
+					
+				if player and grounded:
+					velocity = position.direction_to(player.position) * SPEED
+					state.set_linear_velocity(velocity)
+			elif sight_cast_2.is_colliding():
+				shooting = true
 			else:
-				grounded = false
-				
-			if player and grounded:
-				velocity = position.direction_to(player.position) * SPEED
-				state.set_linear_velocity(velocity)
+				shooting = false
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -93,9 +105,10 @@ func _on_start_engage_timer_timeout() -> void:
 	
 func shoot():
 	fire_rate.start(0.25)
-	print("Pew pew!")
+	
 
 func _on_fire_rate_timeout() -> void:
+	print("Pew pew!")
 	var bullet_instance = bullet.instantiate()
 	bullet_instance.position = vulcan_marker.global_position
 	main.add_child(bullet_instance)
