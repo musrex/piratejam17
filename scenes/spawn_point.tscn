@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://emieh2psan2w"]
 
-[ext_resource type="Script" uid="uid://cj0y1lfbba5kd" path="res://spawn_point.gd" id="1_ebynj"]
+[ext_resource type="Script" uid="uid://cj0y1lfbba5kd" path="res://scripts/spawn_point.gd" id="1_ebynj"]
 [ext_resource type="Texture2D" uid="uid://bwq2k6cbscivl" path="res://assets/spawn_flower.png" id="2_c3ytd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ebynj"]

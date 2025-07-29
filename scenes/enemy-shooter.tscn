@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://bxloonh4sj3g4"]
 
-[ext_resource type="Script" uid="uid://df44xupyu4paw" path="res://scripts/enemy.gd" id="1_7hxp3"]
+[ext_resource type="Script" uid="uid://chofpnjbvyq2e" path="res://scripts/enemy_shooter.gd" id="1_ctjls"]
 [ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_k0qbs"]
 [ext_resource type="Texture2D" uid="uid://bnxokqqcw1glo" path="res://assets/cyborg.png" id="3_k0qbs"]
 [ext_resource type="Texture2D" uid="uid://b5htssvvtyj0m" path="res://assets/ammo.png" id="4_ctjls"]
 [ext_resource type="Texture2D" uid="uid://dq3h02fju8jmk" path="res://assets/minigun.png" id="5_o863w"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o863w"]
 friction = 0.1
 bounce = 0.75
 
@@ -48,16 +48,17 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
 size = Vector2(267, 20)
 
-[node name="Enemy" type="RigidBody2D" groups=["Enemies"]]
-physics_material_override = SubResource("PhysicsMaterial_0xm2m")
+[node name="EnemyShooter" type="RigidBody2D" groups=["Enemies"]]
+physics_material_override = SubResource("PhysicsMaterial_o863w")
 can_sleep = false
 lock_rotation = true
-script = ExtResource("1_7hxp3")
-ENEMY_NAME = "Bert"
+script = ExtResource("1_ctjls")
 
 [node name="SpriteContainer" type="Node2D" parent="."]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer"]
+visible = false
 texture = ExtResource("2_k0qbs")
 hframes = 29
 
@@ -155,6 +156,10 @@ texture = ExtResource("5_o863w")
 [node name="Marker2D" type="Marker2D" parent="VulcanRaven"]
 position = Vector2(16, -1)
 
+[node name="FireRate" type="Timer" parent="VulcanRaven"]
+wait_time = 0.05
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="StartEngageTimer" to="." method="_on_start_engage_timer_timeout"]
+[connection signal="timeout" from="VulcanRaven/FireRate" to="." method="_on_fire_rate_timeout"]

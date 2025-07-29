@@ -1,7 +1,7 @@
 
 extends CharacterBody2D
-@onready var health: int
-@onready var stamina: int
+@export var health: int
+@export var stamina: int
 @onready var flash: ColorRect = $Flash
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -156,3 +156,6 @@ func _on_lock_timeout() -> void:
 	print("Unlocking RAM")
 	velocity = Vector2.ZERO
 	ram_locked = false	
+
+func take_damage():
+	health -= 10

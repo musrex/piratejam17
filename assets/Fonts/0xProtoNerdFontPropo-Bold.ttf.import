@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://k2fbogsfl0sr"
-path="res://.godot/imported/0xProtoNerdFontMono-Regular.ttf-cebb615f515f7b7b8a90e5d16dd64574.fontdata"
+uid="uid://bnebuegj4xwq7"
+path="res://.godot/imported/0xProtoNerdFontPropo-Bold.ttf-e3d3b5a8788de58fb558bff4453fed90.fontdata"
 
 [deps]
 
-source_file="res://assets/0xProtoNerdFontMono-Regular.ttf"
-dest_files=["res://.godot/imported/0xProtoNerdFontMono-Regular.ttf-cebb615f515f7b7b8a90e5d16dd64574.fontdata"]
+source_file="res://assets/Fonts/0xProtoNerdFontPropo-Bold.ttf"
+dest_files=["res://.godot/imported/0xProtoNerdFontPropo-Bold.ttf-e3d3b5a8788de58fb558bff4453fed90.fontdata"]
 
 [params]
 

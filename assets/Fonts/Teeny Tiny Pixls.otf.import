@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://crlarfkmtc6jd"
-path="res://.godot/imported/0xProtoNerdFont-Italic.ttf-69083d7dfa444e51f9d0ec742d86fb59.fontdata"
+uid="uid://rh7yjdgousel"
+path="res://.godot/imported/Teeny Tiny Pixls.otf-3dad749d3383e1db8c935be26b3a5a58.fontdata"
 
 [deps]
 
-source_file="res://assets/0xProtoNerdFont-Italic.ttf"
-dest_files=["res://.godot/imported/0xProtoNerdFont-Italic.ttf-69083d7dfa444e51f9d0ec742d86fb59.fontdata"]
+source_file="res://assets/Fonts/Teeny Tiny Pixls.otf"
+dest_files=["res://.godot/imported/Teeny Tiny Pixls.otf-3dad749d3383e1db8c935be26b3a5a58.fontdata"]
 
 [params]
 

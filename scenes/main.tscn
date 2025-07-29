@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dfevk7xx122i7"]
+[gd_scene load_steps=42 format=4 uid="uid://dfevk7xx122i7"]
 
 [ext_resource type="Script" uid="uid://c5lx6r7jwcei5" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bjvupycuo7tv4" path="res://assets/sky-tiles.png" id="2_tefeu"]
@@ -14,7 +14,9 @@
 [ext_resource type="Script" uid="uid://bq2tqgiib3iru" path="res://scripts/fight_card.gd" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://emieh2psan2w" path="res://scenes/spawn_point.tscn" id="13_jbj1t"]
 [ext_resource type="Script" uid="uid://ta8gty5mhwby" path="res://scripts/fight_scene.gd" id="13_trceg"]
-[ext_resource type="FontFile" uid="uid://d04g4gcug1xre" path="res://assets/0xProtoNerdFontMono-Bold.ttf" id="14_a8y0u"]
+[ext_resource type="FontFile" uid="uid://d04g4gcug1xre" path="res://assets/Fonts/0xProtoNerdFontMono-Bold.ttf" id="14_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://bxloonh4sj3g4" path="res://scenes/enemy-shooter.tscn" id="16_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://bdr7cqelmn4t2" path="res://scenes/player.tscn" id="17_muem4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tipki"]
 texture = ExtResource("2_tefeu")
@@ -1045,6 +1047,9 @@ position = Vector2(1721, 50)
 [node name="Enemy3" parent="Entities" instance=ExtResource("3_h2yge")]
 position = Vector2(990, -364)
 
+[node name="Player" parent="Entities" instance=ExtResource("17_muem4")]
+position = Vector2(129, 139)
+
 [node name="Character Select" parent="." instance=ExtResource("3_tefeu")]
 
 [node name="SpawnPoints" type="Node2D" parent="."]
@@ -1078,8 +1083,6 @@ tile_set = SubResource("TileSet_tefeu")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = true
-autostart = true
 
 [node name="TitleCardTimer" type="Timer" parent="."]
 
@@ -1155,6 +1158,10 @@ offset_bottom = -38.0
 theme_override_fonts/font = ExtResource("14_a8y0u")
 text = "Lower your head and move to 
 ram."
+
+[node name="EnemyShooter" parent="." instance=ExtResource("16_jbj1t")]
+position = Vector2(208, 132)
+ENEMY_TYPE = "Vulcan"
 
 [connection signal="body_entered" from="KillZone" to="." method="_on_kill_zone_body_entered"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

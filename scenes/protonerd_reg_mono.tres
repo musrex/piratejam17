@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://1n1g8vri6yon"]
 
-[ext_resource type="FontFile" uid="uid://d04g4gcug1xre" path="res://assets/0xProtoNerdFontMono-Bold.ttf" id="1_vmmdd"]
+[ext_resource type="FontFile" uid="uid://d04g4gcug1xre" path="res://assets/Fonts/0xProtoNerdFontMono-Bold.ttf" id="1_vmmdd"]
 
 [resource]
 Label/colors/font_color = Color(1, 1, 1, 1)

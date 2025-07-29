@@ -2,18 +2,18 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://vxwjdninnrx5"
-path="res://.godot/imported/0xProtoNerdFont-Bold.ttf-da33d1c8d45f35d47756b685cb0d0cdf.fontdata"
+uid="uid://d04g4gcug1xre"
+path="res://.godot/imported/0xProtoNerdFontMono-Bold.ttf-8e5e0047c9ec6c00c22c9c40c4db9176.fontdata"
 
 [deps]
 
-source_file="res://assets/0xProtoNerdFont-Bold.ttf"
-dest_files=["res://.godot/imported/0xProtoNerdFont-Bold.ttf-da33d1c8d45f35d47756b685cb0d0cdf.fontdata"]
+source_file="res://assets/Fonts/0xProtoNerdFontMono-Bold.ttf"
+dest_files=["res://.godot/imported/0xProtoNerdFontMono-Bold.ttf-8e5e0047c9ec6c00c22c9c40c4db9176.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
