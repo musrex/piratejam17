@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxloonh4sj3g4"]
+[gd_scene load_steps=13 format=3 uid="uid://bxloonh4sj3g4"]
 
 [ext_resource type="Script" uid="uid://chofpnjbvyq2e" path="res://scripts/enemy_shooter.gd" id="1_ctjls"]
-[ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_k0qbs"]
+[ext_resource type="Texture2D" uid="uid://cfm08s30ostbv" path="res://assets/goatcolors.png" id="2_ocdjv"]
+[ext_resource type="Texture2D" uid="uid://bu2043v66tsu5" path="res://assets/laserwarning.png" id="3_foyc7"]
 [ext_resource type="Texture2D" uid="uid://bnxokqqcw1glo" path="res://assets/cyborg.png" id="3_k0qbs"]
 [ext_resource type="Texture2D" uid="uid://b5htssvvtyj0m" path="res://assets/ammo.png" id="4_ctjls"]
+[ext_resource type="Texture2D" uid="uid://uixqo3knhfv8" path="res://assets/blackphillip.png" id="4_o863w"]
 [ext_resource type="Texture2D" uid="uid://dq3h02fju8jmk" path="res://assets/minigun.png" id="5_o863w"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o863w"]
@@ -46,7 +48,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
-size = Vector2(267, 20)
+size = Vector2(398, 20)
 
 [node name="EnemyShooter" type="RigidBody2D" groups=["Enemies"]]
 physics_material_override = SubResource("PhysicsMaterial_o863w")
@@ -55,12 +57,11 @@ lock_rotation = true
 script = ExtResource("1_ctjls")
 
 [node name="SpriteContainer" type="Node2D" parent="."]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer"]
 visible = false
-texture = ExtResource("2_k0qbs")
-hframes = 29
+texture = ExtResource("2_ocdjv")
+hframes = 27
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1bvp3")
@@ -77,7 +78,6 @@ collision_mask = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 light_mask = 5
 visibility_layer = 5
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_md0e3")
 
 [node name="RayCasts" type="Node2D" parent="."]
@@ -93,7 +93,7 @@ position = Vector2(16, 0)
 target_position = Vector2(0, 25)
 
 [node name="SightCast1" type="RayCast2D" parent="RayCasts"]
-target_position = Vector2(70, 0)
+target_position = Vector2(64, 0)
 collision_mask = 4
 
 [node name="SightCast2" type="RayCast2D" parent="RayCasts"]
@@ -128,8 +128,23 @@ offset_bottom = -19.0
 text = "!"
 horizontal_alignment = 1
 
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.05
+
 [node name="Cyborg" type="Node2D" parent="."]
+
+[node name="CyborgFireRate" type="Timer" parent="Cyborg"]
+
+[node name="LaserWarningTimer" type="Timer" parent="Cyborg"]
+
+[node name="LaserWarning" type="Sprite2D" parent="Cyborg"]
 visible = false
+position = Vector2(176, -10)
+texture = ExtResource("3_foyc7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Cyborg"]
+texture = ExtResource("2_ocdjv")
+hframes = 27
 
 [node name="Cyborg" type="Sprite2D" parent="Cyborg"]
 texture = ExtResource("3_k0qbs")
@@ -137,17 +152,34 @@ texture = ExtResource("3_k0qbs")
 [node name="Marker2D" type="Marker2D" parent="Cyborg"]
 position = Vector2(14, -10)
 
+[node name="RayCasts" type="Node2D" parent="Cyborg"]
+
+[node name="RayCast2D" type="RayCast2D" parent="Cyborg/RayCasts"]
+target_position = Vector2(89, 0)
+
 [node name="BlackPhillip" type="Node2D" parent="."]
 visible = false
 
+[node name="Sprite2D" type="Sprite2D" parent="BlackPhillip"]
+texture = ExtResource("4_o863w")
+
+[node name="Marker2D" type="Marker2D" parent="BlackPhillip"]
+position = Vector2(-17, 0)
+
+[node name="RayCasts" type="Node2D" parent="BlackPhillip"]
+
+[node name="RayCast2D" type="RayCast2D" parent="BlackPhillip/RayCasts"]
+target_position = Vector2(115, 0)
+
 [node name="VulcanRaven" type="Node2D" parent="."]
+visible = false
 
 [node name="Ammo" type="Sprite2D" parent="VulcanRaven"]
 texture = ExtResource("4_ctjls")
 
 [node name="VulcanSprite" type="Sprite2D" parent="VulcanRaven"]
-texture = ExtResource("2_k0qbs")
-hframes = 29
+texture = ExtResource("2_ocdjv")
+hframes = 27
 
 [node name="Gun" type="Sprite2D" parent="VulcanRaven"]
 texture = ExtResource("5_o863w")
@@ -155,10 +187,10 @@ texture = ExtResource("5_o863w")
 [node name="Marker2D" type="Marker2D" parent="VulcanRaven"]
 position = Vector2(16, -1)
 
-[node name="FireRate" type="Timer" parent="VulcanRaven"]
-wait_time = 0.05
+[node name="RayCasts" type="Node2D" parent="VulcanRaven"]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="StartEngageTimer" to="." method="_on_start_engage_timer_timeout"]
-[connection signal="timeout" from="VulcanRaven/FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="timeout" from="Cyborg/LaserWarningTimer" to="." method="_on_laser_warning_timer_timeout"]

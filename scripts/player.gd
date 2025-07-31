@@ -1,10 +1,11 @@
 
 extends CharacterBody2D
-@export var health: int
+@export var health = PlayerStats.health
 @export var stamina: int
 @onready var flash: ColorRect = $Flash
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var ram_sound_effect: AudioStreamPlayer2D = $RamSoundEffect
 
 @onready var ground_check: RayCast2D = $GroundCheck
 @onready var sprite_2d: Sprite2D = $SpriteContainer/Normal
@@ -44,12 +45,21 @@ var is_jumping := false
 
 func _ready() -> void:
 	for enemy in get_tree().get_nodes_in_group("Enemies"):
-		print(enemy)
 		enemy.set_player(self)
 	
 	coyote_timer.wait_time = coyote_frames / 60.0
 	
+	var frame = PlayerStats.sprite_frames
+	sprite_2d.frame = frame
+	jumping.frame = frame
+	ramming.frame = frame
+	
 func _physics_process(delta: float) -> void:
+	if PlayerStats.health < 100:
+		$HealthBar.visible = true
+	else:
+		$HealthBar.visible = false
+	
 	if not ram_locked:
 		
 		# Movement inputs
@@ -116,17 +126,14 @@ func pick_state(state: String) -> void:
 			
 func _on_ram_to_right_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemies"):
-		print("POW!")
-		print(body)
 		ram(body)
 
 func _on_ram_to_left_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemies"):
-		print("POW!")
-		print(body)
 		ram(body)
 
 func ram(body):
+		ram_sound_effect.play()
 		var dir = sign(sprite_container.scale.x)
 		var momentum = velocity.length()
 		if momentum < 0.01:
@@ -138,8 +145,6 @@ func ram(body):
 		ram_lock()
 		animation_player.play("flash_hit")
 		body.remove_collision_exception_with(self)
-		print("Dir: ", dir)
-		print("Force: ", force)
 
 @onready var lock: Timer = $Lock
 
@@ -148,14 +153,16 @@ func ram_lock() -> void:
 		ram_locked = true
 		lock.start()
 		velocity = Vector2.ZERO
+	else:
+		ram_locked = false
 	
 func _on_coyote_timer_timeout() -> void:
 	coyote = false
 
 func _on_lock_timeout() -> void:
-	print("Unlocking RAM")
 	velocity = Vector2.ZERO
 	ram_locked = false	
 
-func take_damage():
-	health -= 10
+func take_damage(damage: float):
+	health -= damage
+	PlayerStats.health = health

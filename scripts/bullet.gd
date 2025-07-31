@@ -5,6 +5,7 @@ extends Area2D
 @export var RANGE: float
 @export var player: CharacterBody2D
 
+
 @onready var velocity = Vector2.ZERO
 
 func _ready() -> void:
@@ -17,6 +18,7 @@ func _ready() -> void:
 	
 	if player:
 		velocity = global_position.direction_to(player.global_position) * SPEED
+		
 
 func _process(delta: float) -> void:
 	position += velocity * delta
@@ -27,5 +29,5 @@ func _on_range_timer_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		body.take_damage()
+		body.take_damage(5.0)
 		queue_free()

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvp8yv7fmkjax"]
+
+[ext_resource type="Texture2D" uid="uid://c3rmbjunudlc3" path="res://assets/titlecard.png" id="1_fgkus"]
+[ext_resource type="Script" uid="uid://crxafnw4wavl" path="res://scenes/title_screen.gd" id="1_s4lrb"]
+[ext_resource type="FontFile" uid="uid://d04g4gcug1xre" path="res://assets/Fonts/0xProtoNerdFontMono-Bold.ttf" id="3_mgrm8"]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_s4lrb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(160, 90)
+texture = ExtResource("1_fgkus")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+
+[node name="Label" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_mgrm8")
+text = "Press any key to start"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

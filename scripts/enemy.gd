@@ -38,13 +38,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# THIS PART ISN'T WORKING RIGHT...
 	#if not wait:	
 	if not stunned:
-		#mass = MASS
+		if not color:
+			color = randi_range(0, 27)
+			sprite_2d.frame = color
 		
 		# set color and get enemy facing player
 		if my_floor_active:
-			if not color:
-				color = randi_range(0, 29)
-				sprite_2d.frame = color
+			
 			
 			if player:
 				if player.position.x < position.x:
@@ -68,9 +68,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("YO!")
 	if body.is_in_group("Player"):
-		print("In here")
 		my_floor_active = true
 		
 func stun():

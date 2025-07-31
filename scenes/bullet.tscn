@@ -6,10 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipdhj"]
 size = Vector2(3.75, 4)
 
-[node name="Node2D" type="Area2D"]
+[node name="Bullet" type="Area2D"]
 script = ExtResource("1_y25gk")
 SPEED = 500.0
-RANGE = 5.0
+RANGE = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(8, 0)
@@ -20,7 +20,6 @@ position = Vector2(1.875, 0)
 shape = SubResource("RectangleShape2D_ipdhj")
 
 [node name="RangeTimer" type="Timer" parent="."]
-wait_time = 2.016
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="RangeTimer" to="." method="_on_range_timer_timeout"]

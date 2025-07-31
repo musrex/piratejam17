@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://k6l1kv1hxsnx"]
 
 [ext_resource type="Script" uid="uid://df44xupyu4paw" path="res://scripts/enemy.gd" id="1_md0e3"]
-[ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://cfm08s30ostbv" path="res://assets/goatcolors.png" id="2_md0e3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
 friction = 0.1
@@ -55,8 +55,8 @@ ENEMY_NAME = "Bert"
 [node name="SpriteContainer" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer"]
-texture = ExtResource("2_4ra3w")
-hframes = 29
+texture = ExtResource("2_md0e3")
+hframes = 27
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1bvp3")

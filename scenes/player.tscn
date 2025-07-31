@@ -1,10 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdr7cqelmn4t2"]
+[gd_scene load_steps=17 format=3 uid="uid://bdr7cqelmn4t2"]
 
 [ext_resource type="Script" uid="uid://bfs0cvhkv3as8" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://drmarwj52jjgg" path="res://assets/goat.png" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://cgekkfipocphl" path="res://assets/goat_ramming.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cfm08s30ostbv" path="res://assets/goatcolors.png" id="2_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://co16npqx5e7n7" path="res://assets/goatcolorsram.png" id="3_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://d04qbuyg3bnal" path="res://assets/goat_eating.png" id="4_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://talruquwvyht" path="res://assets/goat_jumping.png" id="5_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://c2wfo50k56g6r" path="res://assets/goatcolorsjump.png" id="5_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://d27pajvyc0yus" path="res://assets/music/ram_sound.wav" id="6_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://byg6l3wyvkgeh" path="res://assets/healthbar/bottom.png" id="7_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://didbhlf7ajt5o" path="res://assets/healthbar/border.png" id="8_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://rtegu74s3ybr" path="res://assets/healthbar/fill.png" id="9_3v2ag"]
+[ext_resource type="Script" uid="uid://kdqm3p3yefd2" path="res://scripts/health_bar.gd" id="10_jej6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(28, 32)
@@ -55,7 +60,6 @@ size = Vector2(21, 8.00002)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_g2els")
-health = 100
 RAM_FORCE = 0.5
 ACCELERATION = 0.032
 DECELERATION = 0.184
@@ -69,14 +73,6 @@ debug_color = Color(2.11775e-06, 0.609289, 0.64295, 0.42)
 visible = false
 position = Vector2(-5.126e-06, 0)
 target_position = Vector2(0, 16)
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -2.98472
-offset_top = -40.0
-offset_right = 37.0153
-offset_bottom = -17.0
-text = "P"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -111,13 +107,14 @@ shape = SubResource("RectangleShape2D_tuyoq")
 
 [node name="Normal" type="Sprite2D" parent="SpriteContainer"]
 position = Vector2(-3.79527e-06, -4)
-texture = ExtResource("2_qhqgy")
-hframes = 29
+texture = ExtResource("2_y4r1p")
+hframes = 27
 
 [node name="Ramming" type="Sprite2D" parent="SpriteContainer"]
 visible = false
 position = Vector2(0, -4)
-texture = ExtResource("3_qhqgy")
+texture = ExtResource("3_y4r1p")
+hframes = 27
 
 [node name="Eating" type="Sprite2D" parent="SpriteContainer"]
 visible = false
@@ -125,7 +122,8 @@ texture = ExtResource("4_qlg0r")
 
 [node name="Jumping" type="Sprite2D" parent="SpriteContainer"]
 visible = false
-texture = ExtResource("5_tuyoq")
+texture = ExtResource("5_d2wvv")
+hframes = 27
 
 [node name="Lock" type="Timer" parent="." groups=["Player"]]
 wait_time = 0.1
@@ -140,6 +138,20 @@ offset_left = -284.0
 offset_top = -238.0
 offset_right = 387.0
 offset_bottom = 223.0
+
+[node name="RamSoundEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_tuyoq")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -17.0
+offset_top = -27.0
+offset_right = 15.0
+offset_bottom = -11.0
+texture_under = ExtResource("7_y4r1p")
+texture_over = ExtResource("8_d2wvv")
+texture_progress = ExtResource("9_3v2ag")
+script = ExtResource("10_jej6c")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="body_entered" from="RamToRight" to="." method="_on_ram_to_right_body_entered"]
